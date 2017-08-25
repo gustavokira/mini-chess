@@ -13,27 +13,29 @@ public class Tabuleiro{
         c.y = j;
         casas[i][j] = c;
         if( (i+j)%2 == 0){
-          c.corFundo = color(50,50,50);
+          c.tipo = 1;
         }else{
-          c.corFundo = color(150,150,150);
+          c.tipo = 2;
         }
+        c.irParaEstadoNormal();
       }
     }
   }
   
   public void addPeca(int x, int y,Peca p){
     Casa c = casas[x][y];
+    p.x = x;
+    p.y = y;
     c.peca = p;
   }
   
-  public void draw(){
+  public void desenhar(){
     for(int i =0;i<4;i++){
       for(int j =0;j<5;j++){
         Casa c = casas[i][j];
         fill(c.corFundo);
         rect(c.x*c.largura,c.y*c.altura,c.altura,c.largura);
         if(c.peca != null){
-          
           image(c.peca.img,c.x*c.largura,c.y*c.altura,c.altura,c.largura);
         }
       }

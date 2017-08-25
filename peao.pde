@@ -9,7 +9,18 @@ public class Peao extends Peca{
     }
   }
   
+  @Override
   public ArrayList<Casa> movimentosPermitidos(){
-    return null;
+    ArrayList<Casa> casas = new ArrayList<Casa>();
+    if(cor == 1){
+      if(tabuleiro.casas[x][y+1].peca == null){
+        casas.add(tabuleiro.casas[x][y+1]);
+      }
+    }else{
+      if(tabuleiro.casas[x][y-1].peca == null){
+        casas.add(tabuleiro.casas[x][y-1]);
+      }
+    }
+    return casas;
   }
 }
