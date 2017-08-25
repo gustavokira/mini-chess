@@ -1,5 +1,5 @@
 
-public class Casa{
+public class Casa {
   int x;
   int y;
   int tipo;
@@ -7,43 +7,80 @@ public class Casa{
   int altura;
   Peca peca;
   color corFundo;
-  
-  boolean selecionado;
-  boolean possibilidade;
-  boolean emCima;
-  
-  public Casa(){
-    selecionado = false;
-    emCima = false;
-    possibilidade = false;
+
+  final int PRETO = 0;
+  final int BRANCO = 1;
+
+  final int EMCIMA = 0;
+  final int POSSIBILIDADE = 1;
+  final int SELECIONADO = 2;
+  final int NORMAL = -1;
+
+  int estado = NORMAL;
+
+  public Casa() {
   }
-  
-  public boolean estaDentro(float cx,float cy){
-    if( (cx > x*largura) && 
-        (cx < (x*largura)+largura) &&
-        (cy > y*altura) &&
-        (cy < (y*altura)+altura)){
-          emCima = true;
-        return true;
-    }else{
-      emCima = false;
+
+  public boolean estaDentro(float cx, float cy) {
+    if ( (cx > x*largura) && 
+      (cx < (x*largura)+largura) &&
+      (cy > y*altura) &&
+      (cy < (y*altura)+altura)
+      ) {
+      estado = EMCIMA;
+      return true;
+    } else {
+      estado = NORMAL;
       return false;
     }
   }
-  public void irParaEstadoEmCima(){
-    corFundo = color(255,200,200); 
+  public boolean estaSelecionado() {
+    if (estado == SELECIONADO)return true;
+    else return false;
   }
-  public void irParaEstadoSelecionado(){
-    corFundo = color(200,255,200); 
+  public boolean estaEmCima() {
+    if (estado == EMCIMA)return true;
+    else return false;
   }
-  public void irParaEstadoPossibilidade(){
-    corFundo = color(255,255,255); 
+  public boolean estaComoPossibilidade() {
+    if (estado == POSSIBILIDADE)return true;
+    else return false;
   }
-  public void irParaEstadoNormal(){
-    if(tipo == 1){
-      corFundo = color(200,200,255); 
-    }else{
-      corFundo = color(150,150,255);
+
+  public void irParaEstadoEmCima() {
+    estado = EMCIMA;
+  }
+  public void irParaEstadoSelecionado() {
+    estado = SELECIONADO;
+  }
+  public void irParaEstadoPossibilidade() {
+    estado = POSSIBILIDADE;
+  }
+  public void irParaEstadoNormal() {
+    estado = NORMAL;
+  }
+
+  public void desenhar() {
+    color cor = -1;
+
+
+    if (estado == EMCIMA) {
+      cor = color(255, 200, 200);
+    } else if (estado == SELECIONADO) {
+      cor = color(200, 255, 200);
+    } else if (estado == POSSIBILIDADE) {
+      cor = color(255, 255, 255);
+    } else {
+      if (tipo == BRANCO) {
+        cor = color(200, 200, 255);
+      } else {
+        cor = color(150, 150, 255);
+      }
+    }
+    fill(cor);
+    rect(x*largura, y*altura, altura, largura);
+    if (peca != null) {
+      image(peca.img, x*largura, y*altura, altura, largura);
     }
   }
 }
