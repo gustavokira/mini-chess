@@ -1,6 +1,6 @@
 # mini-chess
 
-1) Concerte os movimentos do rei e dos peões.
+1) Conserte os movimentos do rei e dos peões.
 2) Adicione uma torre de cada cor.
 3) Adicione um bispo de cada cor.
 4) Adicione uma rainha de cada cor.
